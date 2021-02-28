@@ -32,7 +32,17 @@ module.exports = {
      *  有了map就可以像未加密的代码一样，准确的输出是哪一行哪一列有错。
      * */
     productionSourceMap: false,
-   
+    
+    chainWebpack: config => {
+      config.module
+        .rule('vue')
+        .use('vue-loader')
+        .loader('vue-loader')
+        .tap(options => {
+          options.compilerOptions.whitespace = 'preserve'
+          return options
+        })
+  },
     // 它支持webPack-dev-server的所有选项
     devServer: {
       host: "127.0.0.1",

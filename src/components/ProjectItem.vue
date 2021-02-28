@@ -2,7 +2,7 @@
   <div id="projectitem">
         <div id="projectname">{{name}}</div>
         <div id="buttons">
-            <el-button type="primary" >{{buttonMsg}}</el-button>
+            <el-button type="primary" @click="onMainButtonClick">{{buttonMsg}}</el-button>
             <el-button type="warning" @click="gotogitlab">前往gitlab</el-button>  
         </div>
         <br/>
@@ -17,8 +17,28 @@ export default {
     methods:{
         gotogitlab:function(){
             window.location.href=this.weburl
-        }
+        },
         //todo: add project page
+        gotoproject:function(){
+            this.$router.push('project/' + this.id)
+        },
+        onMainButtonClick:function(){
+            if (this.tracked==1){
+                this.gotoproject()
+            }
+            else{
+                //todo:fix
+                this.$axios({
+                    method:"get",
+                    url:"api/projects/track?id="+this.id
+                }).then(
+                    (response)=>{
+                        console.log(response)
+                        location.reload();
+                    }
+                )
+                    }
+        }
     },
     computed:{
         buttonMsg:function(){
@@ -28,7 +48,7 @@ export default {
                 return "纳入管理"
             }
         }
-    }
+    },
 }
 </script>
 
