@@ -3,28 +3,28 @@
         <ProjectFrame index=1>
             
             <div id="createmilestonetitle">
-                新建阶段性任务
+                新建子需求
             </div>
             <div id="createmilestoneform">
                 <div class="formitem">
-                    阶段性任务标题
+                    子需求标题
                     <div style="margin:5px;" class="createalert"  v-show="!validTitle">
-                        *阶段性任务标题不能为空
+                        *子需求标题不能为空
                     </div>
                     <el-input v-model="title" placeholder="请输入内容"></el-input>
                 </div>
 
                 <div class="formitem">
-                    阶段性任务描述
+                   子需求描述
                     <div style="margin:5px;" class="createalert" v-show="!validDescription">
-                        *阶段性任务描述不能为空
+                        *子需求描述不能为空
                     </div>
                     <el-input v-model="description" type="textarea" :rows=3 placeholder="请输入内容"></el-input>
                 </div>
                 <div class="formitem">
-                    阶段性任务开始时间&#12288;&#12288;
+                   子需求开始时间&#12288;&#12288;
                     <div style="margin:5px;display:inline-block;" class="createalert" v-show="!validStartDate" >
-                        *阶段性任务开始时间不能为空
+                        *子需求开始时间不能为空
                     </div>
                     <br>
                     <el-date-picker v-model="startdate"   type="date" placeholder="选择日期"
@@ -33,13 +33,19 @@
                     {{startdate}}
                 </div>
                 <div class="formitem">
-                    阶段性任务计划结束时间
+                   子需求计划结束时间
                     <div style="margin:5px;display:inline-block;" class="createalert" v-show="!validDueDate">
-                        *阶段性任务结束时间不能为空
+                        *子需求结束时间不能为空
                      </div>
                      <br>
                     <el-date-picker v-model="duedate"   type="date" placeholder="选择日期" value-format="timestamp">
                     </el-date-picker>
+                </div>
+                <div class="formitem">
+                    子需求优先级
+                    <el-radio v-model="priority" label="P0"><el-tag type="danger">P0</el-tag></el-radio>
+                    <el-radio v-model="priority" label="P1"><el-tag type="warning">P1</el-tag></el-radio>
+                    <el-radio v-model="priority" label="P2"><el-tag >P2</el-tag></el-radio>
                 </div>
                 
                 <div class="formitem">
@@ -57,22 +63,24 @@
 <script>
 import ProjectFrame from "@/components/ProjectFrame.vue";
 export default {
-    name:"CreateMilestone",
+    name:"CreateDemand",
      components: {
         ProjectFrame,
     },
     data(){
         return{
-            projectId:this.$route.params.projectid,
+            projectId:"",
+            milestoneId:"",
             title:"",
             description:"",
             startdate:"",
             duedate:"",
-            value1:''
+            priority:'P0'
         }
     },
     created(){
-        console.log(this.projectId)
+        this.projectId=this.$route.params.projectid
+        this.milestoneId=this.$route.params.milestoneid
     },
     computed:{
         validTitle:function(){
@@ -117,17 +125,20 @@ export default {
         },
         onSubmit:function(){
             this.$axios({
-                url:"/api/projects/milestone/create",
+                url:"/api/projects/milestone/issue/create",
                 method:'post',
                 headers:{
                     'Content-Type': 'application/json'
                 },
                 data:JSON.stringify({
                     project_id:parseInt(this.projectId),
+                    milestone_id:parseInt(this.milestoneId),
                     title:this.title,
                     description:this.description,
                     start_date:this.formatTime(new Date(this.startdate)),
                     due_date:this.formatTime(new Date(this.duedate)),
+                    type_tag:"feature",
+                    priority_tag:this.priority
                 })
             }).then(
                 (response)=>{

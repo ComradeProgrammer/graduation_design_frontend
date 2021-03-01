@@ -24,9 +24,19 @@ const routes = [
     component: () => import('../views/CreateMilestone.vue')
   },
   {
+    path: '/project/:projectid/editmilestone/:milestoneid',
+    name: 'EditMilestone',
+    component: () => import('../views/EditMilestone.vue')
+  },
+  {
     path: '/project/:projectid/milestone/:milestoneid',
     name: 'Milestone',
     component: () => import('../views/Milestone.vue')
+  },
+  {
+    path: '/project/:projectid/milestone/:milestoneid/createdemand',
+    name: 'CreateDemand',
+    component: () => import('../views/CreateDemand.vue')
   }
 ]
 

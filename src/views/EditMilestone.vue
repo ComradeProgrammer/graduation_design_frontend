@@ -30,7 +30,7 @@
                     <el-date-picker v-model="startdate"   type="date" placeholder="选择日期"
                     value-format="timestamp">
                     </el-date-picker>
-                    {{startdate}}
+                   
                 </div>
                 <div class="formitem">
                     阶段性任务计划结束时间
@@ -57,22 +57,37 @@
 <script>
 import ProjectFrame from "@/components/ProjectFrame.vue";
 export default {
-    name:"CreateMilestone",
+    name:"EditMilestone",
      components: {
         ProjectFrame,
     },
     data(){
         return{
-            projectId:this.$route.params.projectid,
+            projectId:"",
+            milestoneId:"",
             title:"",
             description:"",
             startdate:"",
             duedate:"",
-            value1:''
         }
     },
     created(){
-        console.log(this.projectId)
+        this.projectId=this.$route.params.projectid
+        this.milestoneId=this.$route.params.milestoneid
+        this.$axios({
+            method:"get",
+            url:"api/projects/milestone?projectid="+this.projectId+"&milestoneid="+this.milestoneId
+        }).then(
+            (response)=>{
+                console.log(response.data)
+                this.title=response.data.title
+                this.description=response.data.description
+                this.duedate=new Date(response.data.due_date).getTime()
+                this.startdate=new Date(response.data.start_date).getTime()
+            }
+        ).catch((error) =>{
+            console.log(error)
+        })
     },
     computed:{
         validTitle:function(){

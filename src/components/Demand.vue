@@ -146,7 +146,6 @@ export default {
         }
     },
     created(){
-        console.log(this.$route.params.projectid)
         this.projectId=this.$route.params.projectid
         this.$axios({
             method:"get",
@@ -162,7 +161,7 @@ export default {
 }
 </script>
 
-<style scope>
+<style scoped>
 #demand{
     width:100%;
 
@@ -195,6 +194,7 @@ export default {
 }
 .seperator{
     display: inline-block;
+    width:100px;
     margin-left: 20px;
     margin-right:20px ;
     margin-top:2px;
