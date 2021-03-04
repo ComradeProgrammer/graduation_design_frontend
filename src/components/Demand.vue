@@ -44,18 +44,21 @@
                 </div>
                 <el-divider></el-divider>
                 <i class="el-icon-share"></i>Merge Request 总数 {{customInfo[i].mrinfo[0]+customInfo[i].mrinfo[1]+customInfo[i].mrinfo[2]}}
-                <div class="seperator">
-                    <el-tag type="success">Merged</el-tag>
-                    <div class="text">{{customInfo[i].mrinfo[0]}}</div>
-                </div>
-                <div class="seperator">
-                    <el-tag type="warning">Opening</el-tag>
-                    <div class="text">{{customInfo[i].mrinfo[1]}}</div>
-                </div>
-                <div class="seperator">
-                    <el-tag type="danger">Closed</el-tag>
-                    <div class="text">{{customInfo[i].mrinfo[2]}}</div>
-                </div>
+                <div style="width:40px;display:inline-block"></div>
+                
+                <el-tag type="success">Merged</el-tag>
+                <div class="text">{{customInfo[i].mrinfo[0]}}</div>
+                <div style="width:40px;display:inline-block"></div>
+            
+                <el-tag type="warning">Opening</el-tag>
+                <div class="text">{{customInfo[i].mrinfo[1]}}</div>
+                <div style="width:40px;display:inline-block"></div>
+            
+            
+                <el-tag type="danger">Closed</el-tag>
+                <div class="text">{{customInfo[i].mrinfo[2]}}</div>
+                <div style="width:40px;display:inline-block"></div>
+                
                 
             </el-card>
         </template>
@@ -194,7 +197,7 @@ export default {
 }
 .seperator{
     display: inline-block;
-    width:100px;
+    width:200px;
     margin-left: 20px;
     margin-right:20px ;
     margin-top:2px;

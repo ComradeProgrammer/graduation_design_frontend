@@ -11,6 +11,7 @@ Vue.use(ElementUI);
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios 
 
+
 new Vue({
   router,
   render: h => h(App)

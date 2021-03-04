@@ -1,30 +1,30 @@
 <template>
     <div>
-        <ProjectFrame index=1>
+        <ProjectFrame index=2>
             
             <div id="createmilestonetitle">
-                新建子需求
+                报告缺陷
             </div>
             <div id="createmilestoneform">
                 <div class="formitem">
-                    子需求标题
+                    缺陷标题
                     <div style="margin:5px;" class="createalert"  v-show="!validTitle">
-                        *子需求标题不能为空
+                        *缺陷标题不能为空
                     </div>
                     <el-input v-model="title" placeholder="请输入内容"></el-input>
                 </div>
 
                 <div class="formitem">
-                   子需求描述
+                   缺陷描述
                     <div style="margin:5px;" class="createalert" v-show="!validDescription">
-                        *子需求描述不能为空
+                        *缺陷描述不能为空
                     </div>
                     <el-input v-model="description" type="textarea" :rows=3 placeholder="请输入内容"></el-input>
                 </div>
                 <div class="formitem">
-                   子需求开始时间&#12288;&#12288;
+                   缺陷开始修复时间&#12288;&#12288;
                     <div style="margin:5px;display:inline-block;" class="createalert" v-show="!validStartDate" >
-                        *子需求开始时间不能为空
+                        *缺陷开始修复时间不能为空
                     </div>
                     <br>
                     <el-date-picker v-model="startdate"   type="date" placeholder="选择日期"
@@ -33,19 +33,34 @@
                     {{startdate}}
                 </div>
                 <div class="formitem">
-                   子需求计划结束时间
+                   缺陷修复结束结束时间
                     <div style="margin:5px;display:inline-block;" class="createalert" v-show="!validDueDate">
-                        *子需求结束时间不能为空
-                     </div>
+                        *缺陷修复结束时间不能为空
+                    </div>
                      <br>
                     <el-date-picker v-model="duedate"   type="date" placeholder="选择日期" value-format="timestamp">
                     </el-date-picker>
                 </div>
                 <div class="formitem">
-                    子需求优先级
+                    缺陷优先级
                     <el-radio v-model="priority" label="P0"><el-tag type="danger">P0</el-tag></el-radio>
                     <el-radio v-model="priority" label="P1"><el-tag type="warning">P1</el-tag></el-radio>
                     <el-radio v-model="priority" label="P2"><el-tag >P2</el-tag></el-radio>
+                </div>
+                <div class="formitem">
+                    缺陷所属的阶段性需求
+                    <div style="margin:5px;display:inline-block;" class="createalert" v-show="!validMilestone">
+                        *缺陷所属的阶段性需求不能为空
+                    </div>
+                    <br>
+                    <el-select v-model="milestoneId" placeholder="请选择缺陷所属的阶段性需求">
+                        <el-option
+                        v-for="milestone in info"
+                        :key="milestone.id"
+                        :label="milestone.title"
+                        :value="milestone.id">
+                        </el-option>
+                    </el-select>
                 </div>
                 
                 <div class="formitem">
@@ -63,7 +78,7 @@
 <script>
 import ProjectFrame from "@/components/ProjectFrame.vue";
 export default {
-    name:"CreateDemand",
+    name:"CreateBug",
      components: {
         ProjectFrame,
     },
@@ -75,12 +90,22 @@ export default {
             description:"",
             startdate:"",
             duedate:"",
-            priority:'P0'
+            priority:'P0',
+            info:{},
         }
     },
     created(){
         this.projectId=this.$route.params.projectid
-        this.milestoneId=this.$route.params.milestoneid
+        this.$axios({
+            method:"get",
+            url:"api/projects/milestone/all?projectid="+this.projectId
+        }).then(
+            (response)=>{
+                this.info=response.data
+            }
+        ).catch((error) =>{
+            console.log(error)
+        })
     },
     computed:{
         validTitle:function(){
@@ -106,6 +131,12 @@ export default {
                 return true
             }
             return false
+        },
+        validMilestone:function(){
+            if(this.milestoneId==""){
+                return false
+            }
+            return true
         },
         disabled:function(){
             if (this.validTitle&&this.validDescription&&this.validStartDate&&this.validDueDate){
@@ -137,13 +168,13 @@ export default {
                     description:this.description,
                     start_date:this.formatTime(new Date(this.startdate)),
                     due_date:this.formatTime(new Date(this.duedate)),
-                    type_tag:"feature",
+                    type_tag:"bug",
                     priority_tag:this.priority
                 })
             }).then(
                 (response)=>{
                     console.log(response)
-                    this.$router.push('/project/' + this.projectId+'/milestone/'+this.milestoneId)
+                    this.$router.push('/project/' + this.projectId+"/bug")
                 }
             ).catch((error) =>{
                 console.log(error.response)
