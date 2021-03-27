@@ -48,6 +48,16 @@ const routes = [
     name: 'CreateBug',
     component: () => import('../views/CreateBug.vue')
   },
+  {
+    path: '/project/:projectid/quality',
+    name: 'Quality',
+    component: () => import('../views/ProjectQuality.vue')
+  },
+  {
+    path: '/project/:projectid/quality/setting',
+    name: 'QualitySetting',
+    component: () => import('../views/SetRegex.vue')
+  },
 ]
 
 const router = new VueRouter({

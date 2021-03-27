@@ -17,11 +17,11 @@
                         </el-menu-item>
                         <el-menu-item index="3">
                             <i class="el-icon-data-analysis"></i>
-                            <template #title>单元测试结果</template>
+                            <template #title>CI看板</template>
                         </el-menu-item>
                         <el-menu-item index="4">
                             <i class="el-icon-warning"></i>
-                            <template #title>代码风格检查</template>
+                            <template #title>贡献统计</template>
                         </el-menu-item>
                     </el-menu>
                 </div>
@@ -58,6 +58,9 @@ export default {
                     break
                 case "2":
                     this.$router.push('/project/' + this.projectId+'/bug')  
+                    break
+                case "3":
+                    this.$router.push('/project/' + this.projectId+'/quality')  
                     break
                 default:
                     console.log("unhandled index")
