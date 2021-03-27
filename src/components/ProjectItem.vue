@@ -36,8 +36,16 @@ export default {
                         console.log(response)
                         location.reload();
                     }
-                )
+                ).catch((error)=>{
+                    if(error.response.status==401){
+                        window.location.href="http://127.0.0.1:3333/login"
                     }
+                    else{
+                        alert("发生错误")
+                        window.location.href="http://127.0.0.1:3333/login"
+                    }
+                })
+            }
         }
     },
     computed:{

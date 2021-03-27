@@ -2,7 +2,9 @@
     <div id="myheader">
         <el-image style="height:56px;width=65px;" :src="imageurl"></el-image>
         <div id="content">{{title}}</div>
+        
          <el-avatar id="avatar" shape="circle" :size="50"  :src="avatar"></el-avatar>
+         <el-button type="danger" style="float:right;margin-top:10px;margin-right:5px" @click="logout">退出登录</el-button>
         </div>
 </template>
 
@@ -13,6 +15,13 @@ export default {
     data(){
         return {
             imageurl:require("@/assets/logo.png")
+        }
+    },
+    methods:{
+        logout(){
+            //todo change to real ip
+            alert("请在gitlab中退出登录")
+            window.location.href="http://127.0.0.1:3333/logout"
         }
     }
 };

@@ -105,6 +105,13 @@ export default {
             }
         ).catch((error) =>{
             console.log(error)
+            if(error.response.status==401){
+                window.location.href="http://127.0.0.1:3333/login"
+            }
+            else{
+                alert("发生错误")
+                window.location.href="http://127.0.0.1:3333/login"
+            }
         })
     },
     computed:{
@@ -178,6 +185,13 @@ export default {
                 }
             ).catch((error) =>{
                 console.log(error.response)
+                if(error.response.status==401){
+                    window.location.href="http://127.0.0.1:3333/login"
+                }
+                else{
+                    alert("发生错误")
+                    window.location.href="http://127.0.0.1:3333/login"
+                }
             })
         }
     }
