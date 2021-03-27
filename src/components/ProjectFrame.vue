@@ -62,6 +62,9 @@ export default {
                 case "3":
                     this.$router.push('/project/' + this.projectId+'/quality')  
                     break
+                case "4":
+                    this.$router.push('/project/' + this.projectId+'/contribute')  
+                    break
                 default:
                     console.log("unhandled index")
             }

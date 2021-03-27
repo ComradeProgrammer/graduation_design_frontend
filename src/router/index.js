@@ -58,6 +58,11 @@ const routes = [
     name: 'QualitySetting',
     component: () => import('../views/SetRegex.vue')
   },
+  {
+    path: '/project/:projectid/contribute',
+    name: 'Contribute',
+    component: () => import('../views/ProjectContribute.vue')
+  },
 ]
 
 const router = new VueRouter({
