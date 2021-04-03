@@ -63,6 +63,11 @@ const routes = [
     name: 'Contribute',
     component: () => import('../views/ProjectContribute.vue')
   },
+  {
+    path: '/project/:projectid/contribute/usercontribute',
+    name: 'UserContribute',
+    component: () => import('../views/UserContribute.vue')
+  },
 ]
 
 const router = new VueRouter({
