@@ -199,7 +199,6 @@ export default {
                 let tmp=new Date()
                 tmp=new Date(tmp.setDate(tmp.getDate()-i))
                 let dateStr=this.getDateStr(tmp)
-                console.log(dateStr)
                 x.push(dateStr)
                 if(dateStr in m){
                     this.recent.push(m[dateStr])

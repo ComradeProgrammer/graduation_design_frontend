@@ -78,6 +78,11 @@ const routes = [
     name: 'CommitContributeView',
     component: () => import('../views/CommitContributeView.vue')
   },
+  {
+    path: '/project/:projectid/contribute/activitycontribute',
+    name: 'ActivityContributeView',
+    component: () => import('../views/ActivityContributeView.vue')
+  },
 ]
 
 const router = new VueRouter({

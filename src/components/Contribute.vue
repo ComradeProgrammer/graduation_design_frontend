@@ -56,8 +56,10 @@
              plain>点击前往</el-button>
         </div>
         <div class="contributetitle">
-            discussion活动分析
-             <el-button style="float:right;color:#409eff;" plain>点击前往</el-button>
+           活动分析
+             <el-button style="float:right;color:#409eff;" 
+              @click="$router.push('/project/' + projectId+'/contribute/activitycontribute')"
+             plain>点击前往</el-button>
         </div>
         <!--div class="contributeitem" >
             <template v-for="(value,language) in this.data.linesByLanguageByAuthor" >
