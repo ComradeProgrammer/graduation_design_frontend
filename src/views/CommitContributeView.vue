@@ -1,19 +1,19 @@
 <template>
     <div>
         <ProjectFrame index=4 >
-            <UserContribute></UserContribute>
+           <CommitContribute></CommitContribute>
         </ProjectFrame>
     </div>
 </template>
 
 <script>
 import ProjectFrame from "@/components/ProjectFrame.vue";
-import UserContribute from "@/components/UserContribute.vue"
+import CommitContribute from "@/components/CommitContribute.vue"
 export default {
-    name:"ProjectContribute",
+    name:"CommitContributeView",
     components: {
         ProjectFrame,
-        UserContribute
+        CommitContribute
     },
    data(){
         return {

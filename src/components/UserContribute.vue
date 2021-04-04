@@ -50,15 +50,30 @@
         <div class="usercontributetitle" style="width:85%;color:white;background-color:#909399">
             commit分析
         </div>
-         <div class="usercontributeitem">
+         <!--div class="usercontributeitem">
              
-             <div style="float:right;width:60%;display:inline-block">
+             <div style="float:right;width:60%;display:inline-block" class="text">
                  代码行数异常阈值<el-input v-model="limit" style="width:50%;"></el-input>
              </div>
              代码行数平均值{{currentRow.avg}}<br>
              代码行数标准差{{currentRow.bias}}<br>
-         </div>
+         </div-->
 
+         <div class="cardlist">
+            <div class="card">
+                <div class="cardheader">代码行数平均值</div>
+                {{cut(currentRow.avg)}}
+            </div>
+            <div class="card">
+                <div class="cardheader">代码行数标准差</div>
+                {{cut(currentRow.bias)}}
+            </div>
+            <div class="card">
+                <div class="cardheader">代码行数异常阈值</div>
+                <el-input v-model="limit" style="width:50%;"></el-input>
+            </div>
+
+        </div>
 
          <div class="usercontributeitem">
             <el-table :data="currentRow.commits" style="width: 100%"  
@@ -126,10 +141,15 @@ export default {
                 totalline:"",
                 language:{},
                 commits:[],
+                avg:0,
+                bias:0,
             }
         }
     },
     methods: {
+        cut(x){
+            return x.toFixed(3)
+        },
         getvalue(key,value){
             if(key==null){
                 return ""
@@ -321,6 +341,36 @@ export default {
 
     font-size: 15px;
     display: block;
+}
+.text{
+    font-family: "PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+}
+.cardlist{
+    width: 85%;margin:0 auto;
+    margin-top:5px;
+    margin-bottom:10px;
+}
+.card{
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+    display:inline-block;
+    width:27%;
+    margin-left:3%;
+    margin-right:3%;
+    margin-bottom:5px;
+    height:100px;
+    color:#67C23A;
+    font-family: "PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+    font-size:40px;
+    text-align: center;
+    
+}
+.cardheader{
+    font-size:20px;
+    margin-top:5px;
+    margin-bottom: 5px;
+    background-color: #409eff;
+    color: white;
+    height:30px;
 }
 
 </style>

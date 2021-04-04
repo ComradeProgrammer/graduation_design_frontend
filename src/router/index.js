@@ -65,8 +65,18 @@ const routes = [
   },
   {
     path: '/project/:projectid/contribute/usercontribute',
-    name: 'UserContribute',
-    component: () => import('../views/UserContribute.vue')
+    name: 'UserContributeView',
+    component: () => import('../views/UserContributeView.vue')
+  },
+  {
+    path: '/project/:projectid/contribute/languagecontribute',
+    name: 'LanguageContributeView',
+    component: () => import('../views/LanguageContributeView.vue')
+  },
+  {
+    path: '/project/:projectid/contribute/commitcontribute',
+    name: 'CommitContributeView',
+    component: () => import('../views/CommitContributeView.vue')
   },
 ]
 

@@ -40,7 +40,7 @@
         <div class="contributetitle">
             分语言维度统计
              <el-button style="float:right;color:#409eff;" 
-             
+             @click="$router.push('/project/' + projectId+'/contribute/languagecontribute')"
              plain>点击前往</el-button>
         </div>
         <div class="contributetitle">
@@ -51,13 +51,15 @@
         </div>
         <div class="contributetitle">
             commit分析
-             <el-button style="float:right;color:#409eff;" plain>点击前往</el-button>
+             <el-button style="float:right;color:#409eff;" 
+             @click="$router.push('/project/' + projectId+'/contribute/commitcontribute')"
+             plain>点击前往</el-button>
         </div>
         <div class="contributetitle">
             discussion活动分析
              <el-button style="float:right;color:#409eff;" plain>点击前往</el-button>
         </div>
-        <div class="contributeitem" >
+        <!--div class="contributeitem" >
             <template v-for="(value,language) in this.data.linesByLanguageByAuthor" >
                 <div :key="language" style="width: 49%;height:200px;display:inline-block; border:1px black solid" v-bind:id="'chart'+language"></div>
             </template>
@@ -69,7 +71,8 @@
                 <div :key="author" style="width: 49%;height:200px;display:inline-block; border:1px black solid" v-bind:id="'chartauthor'+author"></div>
             </template>
 
-        </div>
+        </div-->
+        <div style="height:300px"></div>
 
   </div>
 </template>
@@ -189,96 +192,96 @@ export default {
             option && myChart.setOption(option);
 
         },
-        generateLanguagePersonChart(language){
-            var chartDom = document.getElementById('chart'+language);
-            var myChart = echarts.init(chartDom);
-            var option;
-            var chartdata=[]
-            for(let key in this.data.linesByLanguageByAuthor[language]){  
-                chartdata.push({value:this.data.linesByLanguageByAuthor[language][key],name:key})  
-            }
-            let title=language
-            if(title==""){
-                title="other"
-            }
-            option = {
-                title: {
-                    text: title+'贡献构成',
-                    subtext: '',
-                    left: 'center'
-                },
-                tooltip: {
-                    trigger: 'item'
-                },
-                legend: {
-                    orient: 'vertical',
-                    left: 'left',
-                },
-                series: [
-                    {
-                        name: '',
-                        type: 'pie',
-                        radius: '50%',
-                        data: chartdata,
+    //     generateLanguagePersonChart(language){
+    //         var chartDom = document.getElementById('chart'+language);
+    //         var myChart = echarts.init(chartDom);
+    //         var option;
+    //         var chartdata=[]
+    //         for(let key in this.data.linesByLanguageByAuthor[language]){  
+    //             chartdata.push({value:this.data.linesByLanguageByAuthor[language][key],name:key})  
+    //         }
+    //         let title=language
+    //         if(title==""){
+    //             title="other"
+    //         }
+    //         option = {
+    //             title: {
+    //                 text: title+'贡献构成',
+    //                 subtext: '',
+    //                 left: 'center'
+    //             },
+    //             tooltip: {
+    //                 trigger: 'item'
+    //             },
+    //             legend: {
+    //                 orient: 'vertical',
+    //                 left: 'left',
+    //             },
+    //             series: [
+    //                 {
+    //                     name: '',
+    //                     type: 'pie',
+    //                     radius: '50%',
+    //                     data: chartdata,
                        
-                        emphasis: {
-                            itemStyle: {
-                                shadowBlur: 10,
-                                shadowOffsetX: 0,
-                                shadowColor: 'rgba(0, 0, 0, 0.5)'
-                            }
-                        }
-                    }
-                ]
-            };
+    //                     emphasis: {
+    //                         itemStyle: {
+    //                             shadowBlur: 10,
+    //                             shadowOffsetX: 0,
+    //                             shadowColor: 'rgba(0, 0, 0, 0.5)'
+    //                         }
+    //                     }
+    //                 }
+    //             ]
+    //         };
 
-            option && myChart.setOption(option);
+    //         option && myChart.setOption(option);
 
-        },
-        generatePersonLanguageChart(author){
-            var chartDom = document.getElementById('chartauthor'+author);
-            var myChart = echarts.init(chartDom);
-            var option;
-            var chartdata=[]
-            for(let key in this.data.linesByAuthorByLanguage[author]){  
-                chartdata.push({value:this.data.linesByAuthorByLanguage[author][key],name:key})  
-            }
+    //     },
+    //     generatePersonLanguageChart(author){
+    //         var chartDom = document.getElementById('chartauthor'+author);
+    //         var myChart = echarts.init(chartDom);
+    //         var option;
+    //         var chartdata=[]
+    //         for(let key in this.data.linesByAuthorByLanguage[author]){  
+    //             chartdata.push({value:this.data.linesByAuthorByLanguage[author][key],name:key})  
+    //         }
             
-            option = {
-                title: {
-                    text: author+'贡献构成',
-                    subtext: '',
-                    left: 'center'
-                },
-                tooltip: {
-                    trigger: 'item'
-                },
-                legend: {
-                    orient: 'vertical',
-                    left: 'left',
-                },
-                series: [
-                    {
-                        name: '',
-                        type: 'pie',
-                        radius: '50%',
-                        data: chartdata,
+    //         option = {
+    //             title: {
+    //                 text: author+'贡献构成',
+    //                 subtext: '',
+    //                 left: 'center'
+    //             },
+    //             tooltip: {
+    //                 trigger: 'item'
+    //             },
+    //             legend: {
+    //                 orient: 'vertical',
+    //                 left: 'left',
+    //             },
+    //             series: [
+    //                 {
+    //                     name: '',
+    //                     type: 'pie',
+    //                     radius: '50%',
+    //                     data: chartdata,
                        
-                        emphasis: {
-                            itemStyle: {
-                                shadowBlur: 10,
-                                shadowOffsetX: 0,
-                                shadowColor: 'rgba(0, 0, 0, 0.5)'
-                            }
-                        }
-                    }
-                ]
-            };
+    //                     emphasis: {
+    //                         itemStyle: {
+    //                             shadowBlur: 10,
+    //                             shadowOffsetX: 0,
+    //                             shadowColor: 'rgba(0, 0, 0, 0.5)'
+    //                         }
+    //                     }
+    //                 }
+    //             ]
+    //         };
 
-            option && myChart.setOption(option);
+    //         option && myChart.setOption(option);
 
-        }
-    },
+    //     }
+     },
 
     created(){
         this.projectId=this.$route.params.projectid
@@ -292,13 +295,13 @@ export default {
                 console.log(this.data)
                 this.generateChartA()
                 this.generateChartB()
-                for(let language in this.data.linesByLanguageByAuthor){
-                    this.$nextTick(()=>{this.generateLanguagePersonChart(language)})
+                // for(let language in this.data.linesByLanguageByAuthor){
+                //     this.$nextTick(()=>{this.generateLanguagePersonChart(language)})
                     
-                }
-                for (let author in this.data.linesByAuthorByLanguage){
-                    this.$nextTick(()=>{this.generatePersonLanguageChart(author)})
-                }   
+                // }
+                // for (let author in this.data.linesByAuthorByLanguage){
+                //     this.$nextTick(()=>{this.generatePersonLanguageChart(author)})
+                // }   
             }
         ).catch((error) =>{
             console.log(error)
