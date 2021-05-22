@@ -31,6 +31,11 @@
             某日的活跃度=commit数目+mr数目+note数目(issue 下的comment,mr下的comment,打开关闭issue等等操作)
         </div>
          <div class="item" id="main" style="height:300px;"></div>
+
+          <div class="title">
+            活跃度分析
+          </div>
+          <div class="item" id="main2" style="height:300px;"></div>
   </div>
 </template>
 
@@ -70,6 +75,69 @@ export default {
                 res=res+date
             }
             return res
+        },
+        generateChartFCC(){
+            let x=[]
+            let y=[]
+            //生成表格数据
+            for(let i=13;i>=0;i--){
+                let tmp=new Date()
+                tmp=new Date(tmp.setDate(tmp.getDate()-i))
+                let dateStr=this.getDateStr(tmp)
+                x.push(dateStr)
+                if(dateStr in this.data.fcc){
+                    y.push(this.data.fcc[dateStr])
+                }else{
+                    y.push(0)
+                }
+            }
+
+            
+            var chartDom = document.getElementById('main2');
+            var myChart = echarts.init(chartDom);
+            var option;
+            option = {
+                title: {
+                    text: '14日内FCC趋势',
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        dataZoom: {
+                            yAxisIndex: 'none'
+                        },
+                        dataView: {readOnly: false},
+                        magicType: {type: ['line', 'bar']},
+                        restore: {},
+                        saveAsImage: {}
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: x,
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLabel: {
+                        formatter: '{value} '
+                    }
+                },
+                series: [
+                    {
+                        name: '活跃度',
+                        type: 'line',
+                        data: y,
+                    
+                    },
+                    
+                ]
+            };
+
+            option && myChart.setOption(option);
         },
         generateChart(){
             //第一步计算每天提交多少commit
@@ -180,6 +248,7 @@ export default {
                 this.data=response.data.data
                 console.log(this.data)
                 this.generateChart()
+                 this.generateChartFCC()
             }
         ).catch((error) =>{
             console.log(error)
